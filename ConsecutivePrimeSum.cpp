@@ -5,7 +5,7 @@
 using namespace std;
 
 // https://en.wikipedia.org/wiki/Primality_test#Pseudocode
-bool isPrime(int n) { 
+bool isPrime(long long n) { 
     if (n <= 1) return false;
     if (n <= 3) return true;
     if ((n % 2 == 0) || (n % 3 == 0)) return false;
@@ -22,18 +22,18 @@ bool isPrime(int n) {
  * 
  * https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes#Pseudocode
  */
-vector<int> sieve(int n) {
+vector<int> sieve(long long n) {
     vector<int> v;
     if (n < 2) return v;
-    n = (int) sqrt(n) * 10; // empirical upper bound
+    n = (long long) sqrt(n) * 10; // empirical upper bound
     bool p[n];
     p[0] = p[1] = false;
-    for (int i = 2; i < n; i++) p[i] = true;
+    for (long long i = 2; i < n; i++) p[i] = true;
     
-    for (int i = 2; i * i < n; i++) {
+    for (long long i = 2; i * i < n; i++) {
         if (p[i]) {
             v.push_back(i);
-            for (int j = i * i; j < n; j += i) {
+            for (long long j = i * i; j < n; j += i) {
                 p[j] = false;
             }
         }
@@ -46,7 +46,7 @@ vector<int> sieve(int n) {
 /**
  * Returns the longest sum of consecutive primes below n
  */
-int solve(int n) {
+int solve(long long n) {
     // Get all primes under n
     vector<int> v = sieve(n);
     
@@ -56,7 +56,7 @@ int solve(int n) {
      * 
      * Then backtrack one step because sum > n can't be a solution
      */
-    int sum = 0;
+    long long sum = 0;
     int diff = -1;
     while (sum < n) sum += v[++diff];
     sum -= v[diff--];
