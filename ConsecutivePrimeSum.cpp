@@ -25,7 +25,7 @@ bool isPrime(int n) {
 vector<int> sieve(int n) {
     vector<int> v;
     if (n < 2) return v;
-    
+    n = (int) sqrt(n) * 10; // empirical upper bound
     bool p[n];
     p[0] = p[1] = false;
     for (int i = 2; i < n; i++) p[i] = true;
