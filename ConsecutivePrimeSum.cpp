@@ -60,10 +60,7 @@ long long solve(long long n) {
     long long diff = -1;
     while (sum < n) sum += v[++diff];
     sum -= v[diff--];
-    
-    cout << "Sieve returned " << v.size() << " primes" << endl;
-    cout << "Diff is " << diff << endl;
-    
+        
     // Initialize a state variable so we can more easily start the
     // next iteration after decreasing sequence length
     long long last = sum;
@@ -98,6 +95,8 @@ long long solve(long long n) {
 }
 
 int main() {
-    cout << solve(100000000000) << endl;
+    for (long long i = 10; i < 1000000000000; i*=10) {
+        cout << i << ": " << solve(i) << endl;
+    }
     return 0;
 }
