@@ -9,7 +9,7 @@ bool isPrime(long long n) {
     if (n <= 1) return false;
     if (n <= 3) return true;
     if ((n % 2 == 0) || (n % 3 == 0)) return false;
-    int i = 5;
+    long long i = 5;
     while (i * i <= n) {
         if ((n % i == 0) || (n % (i + 2) == 0)) return false;
         i += 6;
@@ -22,8 +22,8 @@ bool isPrime(long long n) {
  * 
  * https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes#Pseudocode
  */
-vector<int> sieve(long long n) {
-    vector<int> v;
+vector<long long> sieve(long long n) {
+    vector<long long> v;
     if (n < 2) return v;
     n = (long long) sqrt(n) * 10; // empirical upper bound
     bool p[n];
@@ -39,16 +39,16 @@ vector<int> sieve(long long n) {
         }
     }
     
-    for (int i = (int) sqrt(n) + 1; i < n; i++) if (p[i]) v.push_back(i);
+    for (long long i = (long long) sqrt(n) + 1; i < n; i++) if (p[i]) v.push_back(i);
     return v;
 }
 
 /**
  * Returns the longest sum of consecutive primes below n
  */
-int solve(long long n) {
+long long solve(long long n) {
     // Get all primes under n
-    vector<int> v = sieve(n);
+    vector<long long> v = sieve(n);
     
     /**
      * Sum the first primes until our sum exceeds n-1, and keep
@@ -57,13 +57,16 @@ int solve(long long n) {
      * Then backtrack one step because sum > n can't be a solution
      */
     long long sum = 0;
-    int diff = -1;
+    long long diff = -1;
     while (sum < n) sum += v[++diff];
     sum -= v[diff--];
     
+    cout << "Sieve returned " << v.size() << " primes" << endl;
+    cout << "Diff is " << diff << endl;
+    
     // Initialize a state variable so we can more easily start the
     // next iteration after decreasing sequence length
-    int last = sum;
+    long long last = sum;
     
     while ((sum > n || !isPrime(sum)) && diff > 0) {
         
@@ -83,7 +86,7 @@ int solve(long long n) {
          * adding those that our slider catches up to and
          * subtracting those that our slider passes over
          */
-        for (int i = 0; sum < n; i++) {
+        for (long long i = 0; sum < n; i++) {
             sum += v[i + diff];
             sum -= v[i];
             if (isPrime(sum) && sum < n) return sum;
@@ -95,6 +98,6 @@ int solve(long long n) {
 }
 
 int main() {
-    cout << solve(1000000) << endl;
+    cout << solve(100000000000) << endl;
     return 0;
 }
