@@ -60,26 +60,42 @@ vector<int> sieve(int n) {
 int solve(int n) {
     vector<int> v = sieve(n);
     
+    cout << "Primes: ";
+    for (int i: v) cout << i << " ";
+    cout << endl;
+    cout << "There are " << v.size() << " primes" << endl;
     int sum = 0;
     for (int i: v) sum += i;
-    
+    int last = sum;
+    cout << "Starting sum is " << sum << endl;
     int diff = v.size() - 1; // sequence length will be diff + 1
     
-    while (!isPrime(sum)) {
+    while ((sum > n || !isPrime(sum)) && diff > 0) {
+        cout << "Diff is now " << diff << endl;
+        sum = last;
+        cout << "Back to last sum: " << sum << endl;
+        sum -= v[diff];
+        cout << "Removing " << v[diff] << " from sum" << endl;
+        cout << "sum is " << sum << endl;
+        last = sum;
+        if (isPrime(sum) && sum < n) return sum;
         for (int i = 0; i + diff < v.size(); i++) {
+            sum += v[i + diff];
+            cout << "Adding " << v[diff] << " to sum" << endl;
+            cout << "sum is " << sum << endl;
+            if (isPrime(sum) && sum < n) return sum;
             sum -= v[i];
-            if (isPrime(sum)) return sum;
-            sum += v[i];
-            sum -= v[i+diff];
-            if (isPrime(sum)) return sum;
+            cout << "Removing " << v[i] << " from sum" << endl;
+            cout << "sum is " << sum << endl;
+            if (isPrime(sum) && sum < n) return sum;
         }
         diff--;
     }
-    
-    return sum;
+    if (isPrime(sum) && sum < n) return sum;
+    return -1;
 }
 
 int main() {
-    cout << solve(100);
+    cout << solve(1000);
     return 0;
 }
