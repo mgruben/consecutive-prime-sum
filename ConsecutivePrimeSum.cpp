@@ -54,12 +54,32 @@ vector<int> sieve(int n) {
     return v;
 }
 
-void test() {
-    for (int i: sieve(1000)) cout << i << " ";
-    cout << endl;
+/**
+ * Returns the longest sum of consecutive primes below n
+ */
+int solve(int n) {
+    vector<int> v = sieve(n);
+    
+    int sum = 0;
+    for (int i: v) sum += i;
+    
+    int diff = v.size() - 1; // sequence length will be diff + 1
+    
+    while (!isPrime(sum)) {
+        for (int i = 0; i + diff < v.size(); i++) {
+            sum -= v[i];
+            if (isPrime(sum)) return sum;
+            sum += v[i];
+            sum -= v[i+diff];
+            if (isPrime(sum)) return sum;
+        }
+        diff--;
+    }
+    
+    return sum;
 }
 
 int main() {
-    test();
+    cout << solve(100);
     return 0;
 }
