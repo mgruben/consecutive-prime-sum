@@ -1,5 +1,5 @@
 # consecutive-prime-sum 
-Find the prime that can be written as the sum of the most consecutive prime numbers.
+Find the prime, below some limit, that can be written as the sum of the most consecutive prime numbers.
 
 ### [Background](https://projecteuler.net/problem=50)
 The prime 41, can be written as the sum of six consecutive primes:
