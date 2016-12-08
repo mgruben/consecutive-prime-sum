@@ -50,11 +50,6 @@ int solve(int n) {
     // Get all primes under n
     vector<int> v = sieve(n);
     
-    cout << "Primes: ";
-    for (int i: v) cout << i << " ";
-    cout << endl;
-    cout << "There are " << v.size() << " primes" << endl;
-    
     /**
      * Sum the first primes until our sum exceeds n-1, and keep
      * track of the number of primes summed in `diff`.
@@ -69,17 +64,12 @@ int solve(int n) {
     // Initialize a state variable so we can more easily start the
     // next iteration after decreasing sequence length
     int last = sum;
-    cout << "Starting sum is " << sum << endl << endl;
     
     while ((sum > n || !isPrime(sum)) && diff > 0) {
-        cout << endl << "Diff is now " << diff << endl;
         
         // Revert to previous starting position, and subtract last prime
         sum = last;
-        cout << "Back to last sum: " << sum << endl;
         sum -= v[diff];
-        cout << "Removing " << v[diff] << " from sum" << endl;
-        cout << "sum is " << sum << endl;
         
         // Store this starting position for
         // the next-lower sequence length
@@ -95,11 +85,7 @@ int solve(int n) {
          */
         for (int i = 0; sum < n; i++) {
             sum += v[i + diff];
-            cout << "Adding " << v[i + diff] << " to sum" << endl;
-            cout << "sum is " << sum << endl;
             sum -= v[i];
-            cout << "Removing " << v[i] << " from sum" << endl;
-            cout << "sum is " << sum << endl;
             if (isPrime(sum) && sum < n) return sum;
         }
         diff--;
