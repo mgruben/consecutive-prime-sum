@@ -18,17 +18,6 @@ bool isPrime(int n) {
 }
 
 /**
- * Returns the first N prime numbers in a vector.
- * 
- * For use in easily adding primes to and subtracting primes from
- * the current sum.
- */
-vector<int> firstNPrimes(int N) {
-    vector<int> v;
-    return v;
-}
-
-/**
  * Return all prime numbers not greater than some integer n.
  * 
  * https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes#Pseudocode
@@ -69,10 +58,10 @@ int solve(int n) {
     while (sum < n) sum += v[diff++];
     diff--; 
     int last = sum;
-    cout << "Starting sum is " << sum << endl;
+    cout << "Starting sum is " << sum << endl << endl;
     
     while ((sum > n || !isPrime(sum)) && diff > 0) {
-        cout << "Diff is now " << diff << endl;
+        cout << endl << "Diff is now " << diff << endl;
         sum = last;
         cout << "Back to last sum: " << sum << endl;
         sum -= v[diff];
@@ -97,6 +86,6 @@ int solve(int n) {
 }
 
 int main() {
-    cout << solve(100);
+    cout << solve(1000000) << endl;
     return 0;
 }
