@@ -18,7 +18,11 @@ bool isPrime(long long n) {
 }
 
 /**
- * Return all prime numbers not greater than some integer n.
+ * Return all prime numbers whose consecutive sum
+ * only minimally exceeds some integer n.
+ * 
+ * Empirically (in my observation), a good upper bound for the largest
+ * returned prime is sqrt(n) * 10.
  * 
  * https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes#Pseudocode
  */
